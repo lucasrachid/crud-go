@@ -2,31 +2,25 @@ package main
 
 import (
 	// Importe o pacote com as informações de configuração
+	"crud-go/config"
 	"crud-go/internal/app/repository"
 	"crud-go/internal/app/service"
 	"crud-go/internal/pkg/router"
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	// Carregue as variáveis de ambiente do arquivo .env
-	if err := godotenv.Load(); err != nil {
-		fmt.Println("Erro ao carregar arquivo .env:", err)
-		return
-	}
 
-	// Obtenha as variáveis de ambiente
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
+	// Chame a função GetDBConfig para obter as informações de configuração do banco de dados
+	dbUser, dbPassword, dbHost, dbPort, dbName, error := config.GetDBConfig()
+
+	if error != nil {
+		panic(error)
+	}
 
 	// Use as informações do banco de dados para configurar a conexão com o MySQL
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
