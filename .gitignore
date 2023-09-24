@@ -1,0 +1,19 @@
+# Arquivos binários e executáveis
+/bin/
+/pkg/
+/*.exe
+
+# Arquivos de configuração específicos do seu ambiente de desenvolvimento
+/.vscode/
+/.idea/
+/.DS_Store
+
+# Arquivos gerados pela compilação Go
+*.test
+*.out
+
+# Arquivos de dependências gerados pelo Go Modules
+/go.sum
+/go.mod
+
+.env
